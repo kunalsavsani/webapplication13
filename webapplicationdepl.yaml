@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:webapplicationdepl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: WebApplication13
+  template:
+    metadata:
+      labels:
+        app: WebApplication13
+    spec:
+      containers:
+      - name: webapplication13
+        image: kscregistry.azurecr.io/webapplication121repos:latest
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+      - name: kunal1sn
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapplication13
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: WebApplication13
